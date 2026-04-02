@@ -52,40 +52,48 @@ export default function ChapterDetail({
       <div className="site-container">
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h1 className="section-title text-white">{chapter.title}</h1>
+            <p className="mb-2 inline-flex rounded-full border border-orange-500/20 bg-orange-500/10 px-3 py-1 text-sm text-orange-300">
+              Lecture du chapitre
+            </p>
+            <h1 className="section-title">{chapter.title}</h1>
             <p className="section-subtitle">
-              Consultez le cours directement sur la plateforme.
+              Consultez le cours directement sur la plateforme ou ouvrez-le dans un nouvel onglet.
             </p>
           </div>
 
-          <Link href="/subjects" className="dark-button">
-            Retour
-          </Link>
-        </div>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/subjects" className="dark-button">
+              Retour aux matières
+            </Link>
 
-        <div className="glass-card p-5 md:p-6">
-          {chapter.pdf_url ? (
-            <div>
+            {chapter.pdf_url && (
               <a
                 href={chapter.pdf_url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="orange-button"
               >
-                Ouvrir le PDF dans un nouvel onglet
+                Ouvrir le PDF
               </a>
+            )}
+          </div>
+        </div>
 
-              <div className="mt-6 overflow-hidden rounded-2xl border border-white/10">
-                <iframe
-                  src={chapter.pdf_url}
-                  width="100%"
-                  height="760px"
-                  style={{ border: 'none', background: '#111' }}
-                />
-              </div>
+        <div className="glass-card p-4 md:p-6">
+          {chapter.pdf_url ? (
+            <div className="overflow-hidden rounded-2xl border border-white/10 bg-black">
+              <iframe
+                src={chapter.pdf_url}
+                width="100%"
+                height="820px"
+                style={{ border: 'none', background: '#000' }}
+                title={chapter.title}
+              />
             </div>
           ) : (
-            <p className="text-zinc-300">Aucun PDF disponible pour ce chapitre.</p>
+            <div className="rounded-2xl border border-white/10 bg-black/30 p-6">
+              <p className="text-zinc-300">Aucun PDF disponible pour ce chapitre.</p>
+            </div>
           )}
         </div>
       </div>
