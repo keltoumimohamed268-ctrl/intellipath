@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { use, useEffect, useState } from 'react'
 import { supabase } from '../../../lib/supabase'
 
@@ -37,33 +38,57 @@ export default function ChapterDetail({
   }
 
   if (!chapter) {
-    return <div style={{ padding: 20 }}>Chargement...</div>
+    return (
+      <main className="min-h-screen py-12">
+        <div className="site-container">
+          <div className="glass-card p-6 text-zinc-300">Chargement...</div>
+        </div>
+      </main>
+    )
   }
 
   return (
-    <div style={{ padding: 20 }}>
-      <h1>{chapter.title}</h1>
+    <main className="min-h-screen py-12">
+      <div className="site-container">
+        <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <h1 className="section-title text-white">{chapter.title}</h1>
+            <p className="section-subtitle">
+              Consultez le cours directement sur la plateforme.
+            </p>
+          </div>
 
-      {chapter.pdf_url ? (
-        <div style={{ marginTop: 20 }}>
-          <a href={chapter.pdf_url} target="_blank" rel="noopener noreferrer">
-            Ouvrir le PDF dans un nouvel onglet
-          </a>
-
-          <iframe
-            src={chapter.pdf_url}
-            width="100%"
-            height="700px"
-            style={{
-              border: '1px solid #ddd',
-              borderRadius: '8px',
-              marginTop: '12px',
-            }}
-          />
+          <Link href="/subjects" className="dark-button">
+            Retour
+          </Link>
         </div>
-      ) : (
-        <p>Aucun PDF disponible pour ce chapitre.</p>
-      )}
-    </div>
+
+        <div className="glass-card p-5 md:p-6">
+          {chapter.pdf_url ? (
+            <div>
+              <a
+                href={chapter.pdf_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="orange-button"
+              >
+                Ouvrir le PDF dans un nouvel onglet
+              </a>
+
+              <div className="mt-6 overflow-hidden rounded-2xl border border-white/10">
+                <iframe
+                  src={chapter.pdf_url}
+                  width="100%"
+                  height="760px"
+                  style={{ border: 'none', background: '#111' }}
+                />
+              </div>
+            </div>
+          ) : (
+            <p className="text-zinc-300">Aucun PDF disponible pour ce chapitre.</p>
+          )}
+        </div>
+      </div>
+    </main>
   )
 }

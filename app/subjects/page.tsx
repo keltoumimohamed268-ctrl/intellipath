@@ -28,18 +28,18 @@ export default function Subjects() {
   }
 
   return (
-    <main className="min-h-screen bg-gray-50 px-6 py-12">
-      <div className="mx-auto max-w-5xl">
+    <main className="min-h-screen py-12">
+      <div className="site-container">
         <div className="mb-10">
-          <h1 className="text-4xl font-bold text-gray-900">Matières</h1>
-          <p className="mt-2 text-gray-600">
-            Choisissez une matière pour voir les chapitres disponibles.
+          <h1 className="section-title text-white">Matières</h1>
+          <p className="section-subtitle">
+            Choisissez une matière pour accéder aux chapitres et aux cours PDF.
           </p>
         </div>
 
         {subjects.length === 0 ? (
-          <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-200">
-            <p className="text-gray-600">Aucune matière disponible.</p>
+          <div className="glass-card p-6">
+            <p className="text-zinc-300">Aucune matière disponible.</p>
           </div>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -47,12 +47,11 @@ export default function Subjects() {
               <Link
                 key={subject.id}
                 href={`/subjects/${subject.id}`}
-                className="rounded-2xl bg-white p-6 shadow-sm border border-gray-200 hover:shadow-md transition"
+                className="glass-card card-hover p-6 block"
               >
-                <h2 className="text-xl font-semibold text-gray-900">
-                  {subject.name}
-                </h2>
-                <p className="mt-2 text-sm text-gray-600">
+                <div className="mb-4 h-1.5 w-16 rounded-full bg-gradient-to-r from-orange-500 to-orange-300" />
+                <h2 className="text-2xl font-semibold text-white">{subject.name}</h2>
+                <p className="mt-3 text-sm text-zinc-400">
                   Ouvrir les chapitres
                 </p>
               </Link>
