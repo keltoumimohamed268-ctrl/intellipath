@@ -4,27 +4,27 @@ import Link from 'next/link'
 import { use, useEffect, useState } from 'react'
 import { supabase } from '../../../lib/supabase'
 
-type Chapter = {
+type Path = {
   id: string
-  title: string
+  name: string
   order: number
 }
 
-export default function SubjectChapters({
+export default function SubjectPaths({
   params,
 }: {
   params: Promise<{ id: string }>
 }) {
   const { id } = use(params)
-  const [chapters, setChapters] = useState<Chapter[]>([])
+  const [paths, setPaths] = useState<Path[]>([])
 
   useEffect(() => {
-    getChapters()
+    getPaths()
   }, [id])
 
-  async function getChapters() {
+  async function getPaths() {
     const { data, error } = await supabase
-      .from('chapters')
+      .from('paths')
       .select('*')
       .eq('subject_id', id)
       .order('order', { ascending: true })
@@ -34,7 +34,7 @@ export default function SubjectChapters({
       return
     }
 
-    setChapters(data || [])
+    setPaths(data || [])
   }
 
   return (
@@ -42,9 +42,9 @@ export default function SubjectChapters({
       <div className="site-container">
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h1 className="section-title text-white">Chapitres</h1>
+            <h1 className="section-title text-white">Parcours</h1>
             <p className="section-subtitle">
-              Sélectionnez un chapitre pour ouvrir son cours PDF.
+              Sélectionnez un parcours pour voir les chapitres disponibles.
             </p>
           </div>
 
@@ -53,23 +53,23 @@ export default function SubjectChapters({
           </Link>
         </div>
 
-        {chapters.length === 0 ? (
+        {paths.length === 0 ? (
           <div className="glass-card p-6">
-            <p className="text-zinc-300">Aucun chapitre disponible.</p>
+            <p className="text-zinc-300">Aucun parcours disponible.</p>
           </div>
         ) : (
           <div className="grid gap-5">
-            {chapters.map((chapter) => (
+            {paths.map((path) => (
               <Link
-                key={chapter.id}
-                href={`/chapters/${chapter.id}`}
+                key={path.id}
+                href={`/paths/${path.id}`}
                 className="glass-card card-hover p-6 block"
               >
                 <div className="flex items-center justify-between gap-4">
                   <div>
-                    <p className="text-sm text-orange-400">Chapitre {chapter.order}</p>
+                    <p className="text-sm text-orange-400">Parcours {path.order}</p>
                     <h2 className="mt-1 text-xl font-semibold text-white">
-                      {chapter.title}
+                      {path.name}
                     </h2>
                   </div>
 
