@@ -63,8 +63,7 @@ export default function PathChapters({
               <Link
                 key={chapter.id}
                 href={`/chapters/${chapter.id}`}
-                className="glass-card card-hover block p-6"
-              >
+                 className="glass-card card-hover p-6 block rounded-2xl border border-white/10"              >
                 <div className="flex items-center justify-between gap-4">
                   <div>
                     <p className="text-sm text-orange-400">
